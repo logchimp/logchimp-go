@@ -1,4 +1,4 @@
 configured_endpoints: 16
 openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/logchimp%2Flogchimp-5aa09cb8db39089d92b1cefa8fc7326a971c48626d042e2b181bb1e3163dffc3.yml
 openapi_spec_hash: c2071fd66a33e814f743c21d544b9d02
-config_hash: 65e705688fd8241e29cb5eeb3aae9c79
+config_hash: f8bcf828423754098ce3e47018745740
