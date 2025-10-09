@@ -1,7 +1,7 @@
 package apijson
 
 import (
-	"github.com/stainless-sdks/logchimp-go/packages/respjson"
+	"github.com/logchimp/logchimp-go/packages/respjson"
 	"reflect"
 )
 

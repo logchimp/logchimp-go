@@ -2,7 +2,7 @@ package apiform
 
 import (
 	"bytes"
-	"github.com/stainless-sdks/logchimp-go/packages/param"
+	"github.com/logchimp/logchimp-go/packages/param"
 	"io"
 	"mime/multipart"
 	"strings"

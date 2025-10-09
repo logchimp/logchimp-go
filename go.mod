@@ -1,4 +1,4 @@
-module github.com/stainless-sdks/logchimp-go
+module github.com/logchimp/logchimp-go
 
 go 1.22
 

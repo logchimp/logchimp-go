@@ -2,7 +2,7 @@ package param
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/logchimp-go/internal/encoding/json/sentinel"
+	"github.com/logchimp/logchimp-go/internal/encoding/json/sentinel"
 	"reflect"
 )
 

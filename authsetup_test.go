@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stainless-sdks/logchimp-go"
-	"github.com/stainless-sdks/logchimp-go/internal/testutil"
-	"github.com/stainless-sdks/logchimp-go/option"
+	"github.com/logchimp/logchimp-go"
+	"github.com/logchimp/logchimp-go/internal/testutil"
+	"github.com/logchimp/logchimp-go/option"
 )
 
 func TestAuthSetupNewWithOptionalParams(t *testing.T) {

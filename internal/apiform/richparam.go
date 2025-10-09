@@ -1,7 +1,7 @@
 package apiform
 
 import (
-	"github.com/stainless-sdks/logchimp-go/packages/param"
+	"github.com/logchimp/logchimp-go/packages/param"
 	"mime/multipart"
 	"reflect"
 )

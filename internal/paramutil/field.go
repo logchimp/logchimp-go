@@ -1,8 +1,8 @@
 package paramutil
 
 import (
-	"github.com/stainless-sdks/logchimp-go/packages/param"
-	"github.com/stainless-sdks/logchimp-go/packages/respjson"
+	"github.com/logchimp/logchimp-go/packages/param"
+	"github.com/logchimp/logchimp-go/packages/respjson"
 )
 
 func AddrIfPresent[T comparable](v param.Opt[T]) *T {

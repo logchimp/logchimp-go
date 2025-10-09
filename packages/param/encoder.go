@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	shimjson "github.com/stainless-sdks/logchimp-go/internal/encoding/json"
+	shimjson "github.com/logchimp/logchimp-go/internal/encoding/json"
 
 	"github.com/tidwall/sjson"
 )

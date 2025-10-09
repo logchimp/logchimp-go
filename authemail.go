@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"slices"
 
-	"github.com/stainless-sdks/logchimp-go/internal/apijson"
-	"github.com/stainless-sdks/logchimp-go/internal/requestconfig"
-	"github.com/stainless-sdks/logchimp-go/option"
-	"github.com/stainless-sdks/logchimp-go/packages/respjson"
+	"github.com/logchimp/logchimp-go/internal/apijson"
+	"github.com/logchimp/logchimp-go/internal/requestconfig"
+	"github.com/logchimp/logchimp-go/option"
+	"github.com/logchimp/logchimp-go/packages/respjson"
 )
 
 // AuthEmailService contains methods and other services that help with interacting
