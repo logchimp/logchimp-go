@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stainless-sdks/logchimp-go"
-	"github.com/stainless-sdks/logchimp-go/internal"
-	"github.com/stainless-sdks/logchimp-go/option"
+	"github.com/logchimp/logchimp-go"
+	"github.com/logchimp/logchimp-go/internal"
+	"github.com/logchimp/logchimp-go/option"
 )
 
 type closureTransport struct {

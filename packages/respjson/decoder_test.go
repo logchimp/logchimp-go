@@ -3,8 +3,8 @@ package respjson_test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stainless-sdks/logchimp-go/internal/apijson"
-	rj "github.com/stainless-sdks/logchimp-go/packages/respjson"
+	"github.com/logchimp/logchimp-go/internal/apijson"
+	rj "github.com/logchimp/logchimp-go/packages/respjson"
 	"reflect"
 	"testing"
 )

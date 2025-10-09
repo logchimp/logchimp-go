@@ -2,7 +2,7 @@ package param_test
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/logchimp-go/packages/param"
+	"github.com/logchimp/logchimp-go/packages/param"
 	"testing"
 )
 

@@ -2,8 +2,8 @@ package apijson_test
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/logchimp-go/internal/apijson"
-	"github.com/stainless-sdks/logchimp-go/packages/respjson"
+	"github.com/logchimp/logchimp-go/internal/apijson"
+	"github.com/logchimp/logchimp-go/packages/respjson"
 	"testing"
 )
 
