@@ -1,7 +1,7 @@
 package sentinel
 
 import (
-	"github.com/stainless-sdks/logchimp-go/internal/encoding/json/shims"
+	"github.com/logchimp/logchimp-go/internal/encoding/json/shims"
 	"reflect"
 	"sync"
 )

@@ -8,8 +8,8 @@ import (
 	"os"
 	"slices"
 
-	"github.com/stainless-sdks/logchimp-go/internal/requestconfig"
-	"github.com/stainless-sdks/logchimp-go/option"
+	"github.com/logchimp/logchimp-go/internal/requestconfig"
+	"github.com/logchimp/logchimp-go/option"
 )
 
 // Client creates a struct with services and top level methods that help with

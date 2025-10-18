@@ -13,7 +13,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stainless-sdks/logchimp-go/packages/param"
+	"github.com/logchimp/logchimp-go/packages/param"
 )
 
 var encoders sync.Map // map[encoderEntry]encoderFunc

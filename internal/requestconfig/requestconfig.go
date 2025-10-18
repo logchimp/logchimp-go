@@ -18,10 +18,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stainless-sdks/logchimp-go/internal"
-	"github.com/stainless-sdks/logchimp-go/internal/apierror"
-	"github.com/stainless-sdks/logchimp-go/internal/apiform"
-	"github.com/stainless-sdks/logchimp-go/internal/apiquery"
+	"github.com/logchimp/logchimp-go/internal"
+	"github.com/logchimp/logchimp-go/internal/apierror"
+	"github.com/logchimp/logchimp-go/internal/apiform"
+	"github.com/logchimp/logchimp-go/internal/apiquery"
 )
 
 func getDefaultHeaders() map[string]string {

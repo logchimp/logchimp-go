@@ -3,8 +3,8 @@
 package logchimp
 
 import (
-	"github.com/stainless-sdks/logchimp-go/internal/apierror"
-	"github.com/stainless-sdks/logchimp-go/packages/param"
+	"github.com/logchimp/logchimp-go/internal/apierror"
+	"github.com/logchimp/logchimp-go/packages/param"
 )
 
 // aliased to make [param.APIUnion] private when embedding

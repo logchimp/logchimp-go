@@ -10,12 +10,12 @@ import (
 	"net/url"
 	"slices"
 
-	"github.com/stainless-sdks/logchimp-go/internal/apijson"
-	"github.com/stainless-sdks/logchimp-go/internal/apiquery"
-	"github.com/stainless-sdks/logchimp-go/internal/requestconfig"
-	"github.com/stainless-sdks/logchimp-go/option"
-	"github.com/stainless-sdks/logchimp-go/packages/param"
-	"github.com/stainless-sdks/logchimp-go/packages/respjson"
+	"github.com/logchimp/logchimp-go/internal/apijson"
+	"github.com/logchimp/logchimp-go/internal/apiquery"
+	"github.com/logchimp/logchimp-go/internal/requestconfig"
+	"github.com/logchimp/logchimp-go/option"
+	"github.com/logchimp/logchimp-go/packages/param"
+	"github.com/logchimp/logchimp-go/packages/respjson"
 )
 
 // RoadmapService contains methods and other services that help with interacting

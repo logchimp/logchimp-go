@@ -1,8 +1,8 @@
 package sentinel_test
 
 import (
-	"github.com/stainless-sdks/logchimp-go/internal/encoding/json/sentinel"
-	"github.com/stainless-sdks/logchimp-go/packages/param"
+	"github.com/logchimp/logchimp-go/internal/encoding/json/sentinel"
+	"github.com/logchimp/logchimp-go/packages/param"
 	"reflect"
 	"slices"
 	"testing"
