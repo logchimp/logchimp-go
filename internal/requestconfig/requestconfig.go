@@ -460,9 +460,26 @@ func (cfg *RequestConfig) Execute() (err error) {
 	// Don't send the current retry count in the headers if the caller modified the header defaults.
 	shouldSendRetryCount := cfg.Request.Header.Get("X-Stainless-Retry-Count") == "0"
 
-	var res *http.Response
-	var cancel context.CancelFunc
+	var (
+		res         *http.Response
+		cancel      context.CancelFunc
+		lastResBody io.ReadCloser // Track the last response body for cleanup
+	)
+
+	// Ensure we clean up the last response body if we exit early
+	defer func() {
+		if lastResBody != nil {
+			lastResBody.Close()
+		}
+	}()
+
 	for retryCount := 0; retryCount <= cfg.MaxRetries; retryCount += 1 {
+		// Clean up the previous response body before starting a new request
+		if lastResBody != nil {
+			lastResBody.Close()
+			lastResBody = nil
+		}
+
 		ctx := cfg.Request.Context()
 		if cfg.RequestTimeout != time.Duration(0) && isBeforeContextDeadline(time.Now().Add(cfg.RequestTimeout), ctx) {
 			ctx, cancel = context.WithTimeout(ctx, cfg.RequestTimeout)
@@ -480,10 +497,17 @@ func (cfg *RequestConfig) Execute() (err error) {
 		}
 
 		res, err = handler(req)
+		if res != nil && res.Body != nil {
+			lastResBody = res.Body // Track the current response body for cleanup
+		}
+
 		if ctx != nil && ctx.Err() != nil {
 			return ctx.Err()
 		}
+
+		// If we're not retrying or this is the last retry attempt, keep the response
 		if !shouldRetry(cfg.Request, res) || retryCount >= cfg.MaxRetries {
+			lastResBody = nil // Clear the deferred cleanup since we're keeping this response
 			break
 		}
 
@@ -498,11 +522,6 @@ func (cfg *RequestConfig) Execute() (err error) {
 		// Can't actually refresh the body, so we don't attempt to retry here
 		if cfg.Request.GetBody == nil && cfg.Request.Body != nil {
 			break
-		}
-
-		// Close the response body before retrying to prevent connection leaks
-		if res != nil && res.Body != nil {
-			res.Body.Close()
 		}
 
 		time.Sleep(retryDelay(res, retryCount))
