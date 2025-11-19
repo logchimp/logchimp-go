@@ -44,7 +44,7 @@ func (r *PostService) New(ctx context.Context, body PostNewParams, opts ...optio
 // Update a post
 func (r *PostService) Update(ctx context.Context, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "posts"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, nil, nil, opts...)
 	return
@@ -61,7 +61,7 @@ func (r *PostService) List(ctx context.Context, body PostListParams, opts ...opt
 // Delete a posts
 func (r *PostService) Delete(ctx context.Context, body PostDeleteParams, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "posts"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, nil, opts...)
 	return
