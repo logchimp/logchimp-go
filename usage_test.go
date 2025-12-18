@@ -24,6 +24,7 @@ func TestUsage(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
+	t.Skip("Prism tests are disabled")
 	response, err := client.Auth.Login(context.TODO(), logchimp.AuthLoginParams{
 		Email:    "mike@example.com",
 		Password: "password",
