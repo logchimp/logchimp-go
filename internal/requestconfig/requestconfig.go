@@ -407,7 +407,8 @@ func retryDelay(res *http.Response, retryCount int) time.Duration {
 		delay = maxDelay
 	}
 
-	jitter := rand.Int63n(int64(delay / 4))
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	jitter := r.Int63n(int64(delay / 4))
 	delay -= time.Duration(jitter)
 	return delay
 }
@@ -466,12 +467,6 @@ func (cfg *RequestConfig) Execute() (err error) {
 		ctx := cfg.Request.Context()
 		if cfg.RequestTimeout != time.Duration(0) && isBeforeContextDeadline(time.Now().Add(cfg.RequestTimeout), ctx) {
 			ctx, cancel = context.WithTimeout(ctx, cfg.RequestTimeout)
-			defer func() {
-				// The cancel function is nil if it was handed off to be handled in a different scope.
-				if cancel != nil {
-					cancel()
-				}
-			}()
 		}
 
 		req := cfg.Request.Clone(ctx)
@@ -480,6 +475,12 @@ func (cfg *RequestConfig) Execute() (err error) {
 		}
 
 		res, err = handler(req)
+
+		// Close the timeout context for this attempt if one was created
+		if cancel != nil {
+			cancel()
+			cancel = nil
+		}
 		if ctx != nil && ctx.Err() != nil {
 			return ctx.Err()
 		}
