@@ -407,7 +407,8 @@ func retryDelay(res *http.Response, retryCount int) time.Duration {
 		delay = maxDelay
 	}
 
-	jitter := rand.Int63n(int64(delay / 4))
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	jitter := r.Int63n(int64(delay / 4))
 	delay -= time.Duration(jitter)
 	return delay
 }
@@ -466,12 +467,6 @@ func (cfg *RequestConfig) Execute() (err error) {
 		ctx := cfg.Request.Context()
 		if cfg.RequestTimeout != time.Duration(0) && isBeforeContextDeadline(time.Now().Add(cfg.RequestTimeout), ctx) {
 			ctx, cancel = context.WithTimeout(ctx, cfg.RequestTimeout)
-			defer func() {
-				// The cancel function is nil if it was handed off to be handled in a different scope.
-				if cancel != nil {
-					cancel()
-				}
-			}()
 		}
 
 		req := cfg.Request.Clone(ctx)
@@ -480,17 +475,25 @@ func (cfg *RequestConfig) Execute() (err error) {
 		}
 
 		res, err = handler(req)
+
 		if ctx != nil && ctx.Err() != nil {
+			if cancel != nil {
+				cancel()
+				cancel = nil
+			}
 			return ctx.Err()
 		}
 		if !shouldRetry(cfg.Request, res) || retryCount >= cfg.MaxRetries {
 			break
 		}
 
-		// Prepare next request and wait for the retry delay
 		if cfg.Request.GetBody != nil {
 			cfg.Request.Body, err = cfg.Request.GetBody()
 			if err != nil {
+				if cancel != nil {
+					cancel()
+					cancel = nil
+				}
 				return err
 			}
 		}
@@ -500,9 +503,12 @@ func (cfg *RequestConfig) Execute() (err error) {
 			break
 		}
 
-		// Close the response body before retrying to prevent connection leaks
 		if res != nil && res.Body != nil {
 			res.Body.Close()
+		}
+		if cancel != nil {
+			cancel()
+			cancel = nil
 		}
 
 		time.Sleep(retryDelay(res, retryCount))
@@ -521,12 +527,20 @@ func (cfg *RequestConfig) Execute() (err error) {
 	// If there was a connection error in the final request or any other transport error,
 	// return that early without trying to coerce into an APIError.
 	if err != nil {
+		if cancel != nil {
+			cancel()
+			cancel = nil
+		}
 		return err
 	}
 
 	if res.StatusCode >= 400 {
 		contents, err := io.ReadAll(res.Body)
 		res.Body.Close()
+		if cancel != nil {
+			cancel()
+			cancel = nil
+		}
 		if err != nil {
 			return err
 		}
@@ -558,6 +572,10 @@ func (cfg *RequestConfig) Execute() (err error) {
 
 	contents, err := io.ReadAll(res.Body)
 	res.Body.Close()
+	if cancel != nil {
+		cancel()
+		cancel = nil
+	}
 	if err != nil {
 		return fmt.Errorf("error reading response body: %w", err)
 	}
