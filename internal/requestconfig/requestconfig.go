@@ -476,19 +476,17 @@ func (cfg *RequestConfig) Execute() (err error) {
 
 		res, err = handler(req)
 
-		// Close the timeout context for this attempt if one was created
-		if cancel != nil {
-			cancel()
-			cancel = nil
-		}
 		if ctx != nil && ctx.Err() != nil {
+			if cancel != nil {
+				cancel()
+				cancel = nil
+			}
 			return ctx.Err()
 		}
 		if !shouldRetry(cfg.Request, res) || retryCount >= cfg.MaxRetries {
 			break
 		}
 
-		// Prepare next request and wait for the retry delay
 		if cfg.Request.GetBody != nil {
 			cfg.Request.Body, err = cfg.Request.GetBody()
 			if err != nil {
@@ -505,7 +503,6 @@ func (cfg *RequestConfig) Execute() (err error) {
 			break
 		}
 
-		// Close the response body before retrying to prevent connection leaks
 		if res != nil && res.Body != nil {
 			res.Body.Close()
 		}
